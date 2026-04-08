@@ -1,5 +1,5 @@
-FROM node:18
+FROM nginx:latest
+COPY index.html/usr/share/nginx/html/
 WORKDIR /app
-COPY . .
 RUN npm install
 CMD ["node", "app.js"]
