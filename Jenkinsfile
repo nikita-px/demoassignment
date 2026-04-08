@@ -2,6 +2,7 @@ pipeline {
   agent any
 
   stages {
+
     stage('Build') {
       steps {
         sh 'docker build -t node-app .'
@@ -10,7 +11,10 @@ pipeline {
 
     stage('Run') {
       steps {
-        sh 'docker run -d -p 3000:3000 node-app'
+        sh '''
+        docker rm -f node-container || true
+        docker run -d -p 3000:80 --name node-container node-app
+        '''
       }
     }
   }
