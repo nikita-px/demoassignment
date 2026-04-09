@@ -1,21 +1,29 @@
-pipeline {
+pipeline{
   agent any
+  stages{
+    stage('Checkout'){
+          steps{
+            git url:'https://github.com/Juieeee/DockerJenkins.git' , branch:'main'
+          }
+          }
 
-  stages {
+          stage('Build Image'){
+            steps{
+              bat 'docker build -t mywebsite .'
+            }
+          }
+          
+          stage('Stop Old Containers'){
+            steps{
+              bat 'docker stop mycont || exit 0'
+              bat 'docker rm mycont || exit 0'
+            }
+          }
 
-    stage('Build') {
-      steps {
-        sh 'docker build -t node-app .'
-      }
-    }
-
-    stage('Run') {
-      steps {
-        sh '''
-        docker rm -f node-container || true
-        docker run -d -p 3000:80 --name node-container node-app
-        '''
-      }
-    }
-  }
-}
+          stage('Run Image -Contanerize'){
+            steps{
+              bat 'docker run -d -p 7000:80 --name mycont mywebsite'
+              }
+           }
+        }
+        }
