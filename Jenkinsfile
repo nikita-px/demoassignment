@@ -3,13 +3,13 @@ pipeline{
   stages{
     stage('Checkout'){
           steps{
-            git url:'https://github.com/Juieeee/DockerJenkins.git' , branch:'main'
+            git url:'https://github.com/nikita-px/demoassignment.git' , branch:'main'
           }
           }
 
           stage('Build Image'){
             steps{
-              bat 'docker build -t mywebsite .'
+              bat 'docker build -t mywebsite1 .'
             }
           }
           
@@ -22,7 +22,7 @@ pipeline{
 
           stage('Run Image -Contanerize'){
             steps{
-              bat 'docker run -d -p 7000:80 --name mycont mywebsite'
+              bat 'docker run -d -p 7000:80 --name mycont mywebsite1'
               }
            }
         }
