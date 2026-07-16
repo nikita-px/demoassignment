@@ -1,7 +1,7 @@
 pipeline{
   agent any
   stages{
-    stage('Checkout'){
+    stage('Checkooout'){
           steps{
             git url:'https://github.com/nikita-px/demoassignment.git' , branch:'main'
           }
